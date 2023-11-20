@@ -2,16 +2,13 @@ import { Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
-  FormGroupDirective,
-  NgForm,
   Validators,
-  FormsModule,
-  ReactiveFormsModule,
 } from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
 import { AuthErrorStateMatcher } from '../auth-error-state-matcher';
 import { AUTH_ROUTES } from '../auth.constants';
 import { LoginService } from './login.service';
+import {Store} from "@ngrx/store";
+import {loginAction} from "../store/actions/login.actions";
 
 
 
@@ -23,7 +20,7 @@ import { LoginService } from './login.service';
 export class LoginComponent {
   public matcher = new AuthErrorStateMatcher();
   public R = AUTH_ROUTES;
- 
+
   public signinFormGroup: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required ]),
     password: new FormControl('', [Validators.required, Validators.minLength(6) ])
@@ -32,15 +29,17 @@ export class LoginComponent {
   public hide = false
 
   constructor(
-    private loginService: LoginService
+    private loginService: LoginService,
+    private store: Store
   ) {}
 
   public handleLogin() {
     console.log(this.signinFormGroup)
     const {email, password} = this.signinFormGroup.value;
     console.log(email, password)
-    this.loginService.login({login: email, password}).subscribe(data => {
-      console.log(data);
-    })
+    this.store.dispatch(loginAction(this.signinFormGroup.value));
+    // this.loginService.login({login: email, password}).subscribe(data => {
+    //   console.log(data);
+    // })
   }
 }

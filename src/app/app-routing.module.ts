@@ -7,6 +7,7 @@ const routes: Routes = [  {
   component: PublicWrapperComponent,
   children: [
     { path: '', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule) },
+    { path: '', loadChildren: () => import('./contacts/contacts.module').then((m) => m.ContactsModule) },
   ],
 },];
 

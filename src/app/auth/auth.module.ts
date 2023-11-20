@@ -8,7 +8,10 @@ import { RegisterComponent } from './register/register.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {AuthComponent} from "./auth.component";
+import {StoreModule} from "@ngrx/store";
 
+
+import * as authReducers from 'src/app/auth/store/reducers';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import {AuthComponent} from "./auth.component";
     FormsModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    StoreModule.forFeature(authReducers.authFeatureKey, authReducers.authReducer)
   ]
 })
 export class AuthModule { }

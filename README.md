@@ -1,4 +1,4 @@
-# CChat with encrypted correspondence using secret phrases
+# Cipher Chat with encrypted correspondence using secret phrases
 
 ## Technology stack
 

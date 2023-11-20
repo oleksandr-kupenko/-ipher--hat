@@ -1,0 +1,17 @@
+.register-form-container {
+  max-width: 500px;
+
+  .register-form {
+    &__field-group {
+        &--btn {
+            width: 30%;
+            margin-left: auto;
+        }
+    }
+
+    &__submit {
+      margin-left: auto;
+      width: 30%;
+    }
+  }
+}

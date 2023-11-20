@@ -1,0 +1,145 @@
+<div class="register-form-container row justify-content-center mx-auto">
+  <form
+    class="register-form d-flex justify-content-center flex-column"
+    [formGroup]="signinFormGroup"
+    (ngSubmit)="handleRegister()"
+  >
+    <div class="register-form__field-group d-flex flex-column">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          [errorStateMatcher]="matcher"
+          matInput
+          formControlName="email"
+          placeholder="Ex. pat@example.com"
+        />
+        <mat-error
+          *ngIf="
+            signinFormGroup.controls['email'].hasError('email') &&
+            !signinFormGroup.controls['email'].hasError('required')
+          "
+        >
+          Please enter a valid email address
+        </mat-error>
+        <mat-error
+          *ngIf="signinFormGroup.controls['email'].hasError('required')"
+        >
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          [type]="hide ? 'password' : 'text'"
+          [errorStateMatcher]="matcher"
+          matInput
+          formControlName="password"
+          placeholder="Password"
+        />
+        <mat-error
+          *ngIf="signinFormGroup.controls['password'].hasError('required')"
+        >
+          Password is <strong>required</strong>
+        </mat-error>
+        <mat-error
+          *ngIf="signinFormGroup.controls['password'].hasError('minlength')"
+        >
+          Min length is 6
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Confirm Password</mat-label>
+        <input
+          [type]="hide ? 'password' : 'text'"
+          [errorStateMatcher]="matcher"
+          matInput
+          formControlName="confirmPassword"
+          placeholder="Confirm Password"
+        />
+        <mat-error
+          *ngIf="
+            signinFormGroup.controls['confirmPassword'].hasError('required')
+          "
+        >
+          Password is <strong>required</strong>
+        </mat-error>
+        <mat-error
+          *ngIf="
+            signinFormGroup.controls['confirmPassword'].hasError(
+              'passwordMismatch'
+            )
+          "
+        >
+          Password mismatch
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Unique id number</mat-label>
+        <input
+          [type]="'number'"
+          [errorStateMatcher]="matcher"
+          matInput
+          formControlName="uniqueNumber"
+          placeholder="Unique id number (10 to 15 digits)"
+        />
+        <mat-error
+          *ngIf="signinFormGroup.controls['uniqueNumber'].hasError('required')"
+        >
+          Unique id number is required. This is needed to receive and send
+          messages.
+        </mat-error>
+        <mat-error
+          *ngIf="signinFormGroup.controls['uniqueNumber'].hasError('minlength')"
+        >
+          Min length is 10
+        </mat-error>
+        <mat-error
+          *ngIf="signinFormGroup.controls['uniqueNumber'].hasError('maxlenth')"
+        >
+          Max length is 15
+        </mat-error>
+      </mat-form-field>
+      <button
+        class="register-form__field-group--btn btn btn-sm btn-outline-dark"
+        type="button"
+        (click)="handleGenerateUniqueNumber()"
+      >
+        Generate
+      </button>
+    </div>
+
+    <div class="register-form__field-group d-flex flex-column mt-3">
+      <h2>Optional</h2>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input
+          type="name"
+          [errorStateMatcher]="matcher"
+          matInput
+          formControlName="name"
+          placeholder="John Smith"
+        />
+        <mat-error
+          *ngIf="signinFormGroup.controls['password'].hasError('minlength')"
+        >
+          Min length is 3
+        </mat-error>
+        <mat-error
+          *ngIf="signinFormGroup.controls['password'].hasError('maxlenth')"
+        >
+          Max length is 40
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <button mat-flat-button class="register-form__submit">Register</button>
+  </form>
+
+  <div class="sign-up-offer">
+    <a mat-button color="primary" [routerLink]="['/', R.login]">Sign in</a>
+  </div>
+</div>

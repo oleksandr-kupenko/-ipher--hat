@@ -1,0 +1,58 @@
+<div class="login-form-container row justify-content-center mx-auto">
+  <form class="login-form d-flex justify-content-center flex-column" [formGroup]="signinFormGroup" (ngSubmit)="handleLogin()">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        [errorStateMatcher]="matcher"
+        matInput
+        formControlName="email"
+        [errorStateMatcher]="matcher"
+        placeholder="Ex. pat@example.com"
+      />
+      <mat-error
+        *ngIf="
+        signinFormGroup.controls['email'].hasError('email') &&
+          !signinFormGroup.controls['email'].hasError('required')
+        "
+      >
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="signinFormGroup.controls['email'].hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          [type]="hide ? 'password' : 'text'"
+          [errorStateMatcher]="matcher"
+          matInput
+          formControlName="password"
+          [errorStateMatcher]="matcher"
+          placeholder="Password"
+        />
+        <mat-error
+          *ngIf="
+            signinFormGroup.controls['password'].hasError('password') &&
+            !signinFormGroup.controls['password'].hasError('password')
+          "
+        >
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="signinFormGroup.controls['password'].hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="signinFormGroup.controls['password'].hasError('minlength')">
+            Min length is 6
+          </mat-error>
+      </mat-form-field>
+
+      <button type="submit" mat-flat-button class="login-form__submit">Login</button>
+  </form>
+
+  <div class="sign-up-offer">
+    <a mat-button color="primary" [routerLink]="['/', R.register]">Sign up</a>
+  </div>
+</div>
